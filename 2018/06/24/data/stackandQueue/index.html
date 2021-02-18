@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/avatar.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="zansimple" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="栈的定义与实现栈的定义定义：把运算位置限制在表尾端栈顶：允许运算端栈顶指示器：用来指示动态变化的栈顶位置空栈：表中没有任何元素满栈：无法申请到栈区可用空间栈的常见运算：进栈或入栈（表尾插入）、出栈或退栈（表尾删除）上溢：栈已满还要入栈下溢：栈已空还要出栈栈的特性：后进先出 栈的抽象数据类型定义数据元素：可以是任意的数据，但必须属于同一数据对象。关系：栈中数据元素之间是线性关系。基本操作：  Ini">
+<meta property="og:type" content="article">
+<meta property="og:title" content="读书笔记之栈与队列-1">
+<meta property="og:url" content="http://example.com/2018/06/24/data/stackandQueue/index.html">
+<meta property="og:site_name" content="zansimple">
+<meta property="og:description" content="栈的定义与实现栈的定义定义：把运算位置限制在表尾端栈顶：允许运算端栈顶指示器：用来指示动态变化的栈顶位置空栈：表中没有任何元素满栈：无法申请到栈区可用空间栈的常见运算：进栈或入栈（表尾插入）、出栈或退栈（表尾删除）上溢：栈已满还要入栈下溢：栈已空还要出栈栈的特性：后进先出 栈的抽象数据类型定义数据元素：可以是任意的数据，但必须属于同一数据对象。关系：栈中数据元素之间是线性关系。基本操作：  Ini">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/img/stack/stack1.jpg">
+<meta property="og:image" content="http://example.com/img/stack/stack3.jpg">
+<meta property="og:image" content="http://example.com/img/stack/stack4.jpg">
+<meta property="article:published_time" content="2018-06-24T00:48:32.000Z">
+<meta property="article:modified_time" content="2021-02-03T14:57:36.579Z">
+<meta property="article:author" content="zansimple">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/stack/stack1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2018/06/24/data/stackandQueue/"/>
+
+
+
+
+
+  <title>读书笔记之栈与队列-1 | zansimple</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zansimple</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">从未如此简单有趣</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/06/24/data/stackandQueue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zansimple">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">读书笔记之栈与队列-1</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-24T08:48:32+08:00">
+                2018-06-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/24/data/stackandQueue/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/06/24/data/stackandQueue/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="栈的定义与实现"><a href="#栈的定义与实现" class="headerlink" title="栈的定义与实现"></a>栈的定义与实现</h2><h3 id="栈的定义"><a href="#栈的定义" class="headerlink" title="栈的定义"></a>栈的定义</h3><p>定义：把运算位置限制在表尾端<br>栈顶：允许运算端<br>栈顶指示器：用来指示动态变化的栈顶位置<br>空栈：表中没有任何元素<br>满栈：无法申请到栈区可用空间<br>栈的常见运算：进栈或入栈（表尾插入）、出栈或退栈（表尾删除）<br>上溢：栈已满还要入栈<br>下溢：栈已空还要出栈<br>栈的特性：后进先出<br><img src="/img/stack/stack1.jpg" alt="stack"></p>
+<h4 id="栈的抽象数据类型定义"><a href="#栈的抽象数据类型定义" class="headerlink" title="栈的抽象数据类型定义"></a>栈的抽象数据类型定义</h4><p>数据元素：可以是任意的数据，但必须属于同一数据对象。<br>关系：栈中数据元素之间是线性关系。<br>基本操作：</p>
+<ul>
+<li>InitStack(S)</li>
+<li>ClearStack(S)</li>
+<li>IsEmpty(S)</li>
+<li>IsFull(S)</li>
+<li>Push(S , x)</li>
+<li>Pop(S , x)</li>
+<li>GetTop(S , x)<h3 id="栈的顺序实现"><a href="#栈的顺序实现" class="headerlink" title="栈的顺序实现"></a>栈的顺序实现</h3>定义：</li>
+<li>用一组连续的存储单元依次存放自栈底到栈顶的数据元素.</li>
+<li>设一个位置指针top（栈顶指针）动态指示栈顶元素在顺序栈中的位置。</li>
+<li>top = -1 表示空栈。  </li>
+</ul>
+<h4 id="用C语言描述栈的顺序存储结构"><a href="#用C语言描述栈的顺序存储结构" class="headerlink" title="用C语言描述栈的顺序存储结构"></a>用C语言描述栈的顺序存储结构</h4><pre><code>    #define TRUE 1  
+    #define FALSE 0
+    #define Stack_Size 50//任意长度
+    typedef struct
+    &#123;
+        StackElementType elem[Stack_Size];//类型
+        int top;//指示器
+    &#125;SeqStack;//顺序栈
+</code></pre>
+<h4 id="顺序栈基本操作的实现"><a href="#顺序栈基本操作的实现" class="headerlink" title="顺序栈基本操作的实现"></a>顺序栈基本操作的实现</h4><ul>
+<li><p>初始化</p>
+<pre><code>  void InitStack(SeqStack *S)
+  &#123;
+      //构造一个空栈S*
+      S-&gt;top = -1;
+  &#125;
+</code></pre>
+</li>
+<li><p>判栈空</p>
+<pre><code>  int IsEmpty(SeqStack *S)&#123;
+      //判栈S为空栈时返回值为真，反之为假
+      return(S-&gt;top == -1 ? TRUE : FALSE);
+  &#125;
+</code></pre>
+</li>
+<li><p>判栈满</p>
+<pre><code>  int IsFull(SeqStack *S)&#123;
+      //判栈S为满时返回值为真，反之为假
+      return(S-&gt;top == Stack_Size - 1 ? TRUE : FALSE);
+  &#125;
+</code></pre>
+</li>
+<li><p>进栈</p>
+<pre><code>  int Push(SeqStack *S , StackElementType x)&#123;
+      if(S-&gt;top == Stack_Size - 1)//判断栈是否已满
+      return(FALSE);
+      S-&gt;top++;
+      S-&gt;elem[S-&gt;top] = x;
+      return(TURE);
+  &#125;
+</code></pre>
+</li>
+<li><p>出栈</p>
+<pre><code>  int Pop(SeqStack *S , StackElementType *x)&#123;
+      if(S-&gt;top == - 1)&#123;
+          //判断栈是否已空
+      return(FALSE);
+      &#125;
+      else&#123;
+          *x =S-&gt;elem[S-&gt;top];
+           S-&gt;top--;
+          return(TURE);
+      &#125;
+  &#125;
+</code></pre>
+</li>
+<li><p>读栈顶元素</p>
+<pre><code>   int GetTop(SeqStack *S , StackElementType *x)&#123;
+      if(S-&gt;top == - 1)&#123;
+          //判断栈是否已空
+      return(FALSE);
+      &#125;
+      else&#123;
+          *x =S-&gt;elem[S-&gt;top];
+          return(TURE);
+      &#125;
+  &#125;
+</code></pre>
+</li>
+</ul>
+<h4 id="两栈共享的数据结构"><a href="#两栈共享的数据结构" class="headerlink" title="两栈共享的数据结构"></a>两栈共享的数据结构</h4><h5 id="两栈共享栈空间示意图"><a href="#两栈共享栈空间示意图" class="headerlink" title="两栈共享栈空间示意图"></a>两栈共享栈空间示意图</h5><p>利用了栈栈底位置不变 ， 而栈顶位置动态变化的特性为两个栈申请一个共享的一维数组空间S[M]<br>将两个栈的栈底分别为一维数组的两端 0 和 M-1<br>共享栈空间示意： top[0] 和 top[1] 为两个栈顶指示器  </p>
+<h5 id="两栈共享的数据结构定义"><a href="#两栈共享的数据结构定义" class="headerlink" title="两栈共享的数据结构定义"></a>两栈共享的数据结构定义</h5><pre><code>    #define M 100
+    typedef struct&#123;
+        StackElementType Stack[M];//栈区
+        int top[2];//两个栈顶指示器
+    &#125;DqStack;
+</code></pre>
+<h5 id="初始化操作算法"><a href="#初始化操作算法" class="headerlink" title="初始化操作算法"></a>初始化操作算法</h5><pre><code>    void InitStack(DqStack *S)&#123;
+        S-&gt;top[0] = -1;
+        S-&gt;top[1] = M;
+    &#125;
+</code></pre>
+<h5 id="进栈操作算法"><a href="#进栈操作算法" class="headerlink" title="进栈操作算法"></a>进栈操作算法</h5><p>进栈操作步骤：</p>
+<ul>
+<li><p>进栈需判栈满 S-&gt;top[0] + 1 == S-&gt;top[1]</p>
+</li>
+<li><p>修改栈顶指针</p>
+</li>
+<li><p>元素进栈</p>
+<pre><code>  int Push(DqStack *S , StackElementType x , int i)&#123;
+      if(S-&gt;top[0] + 1 == S-&gt;top[1])//判断栈是否已满
+      return(FALSE);
+      switch(i)&#123;
+          case 0:
+              S-&gt;top[0]++;
+              S-&gt;Stack[S-&gt;top[0]] = x;
+              break;
+          case 1:
+              S-&gt;top[1]--;
+              S-&gt;Stack[S-&gt;top[1]] = x;
+              break;
+          default:
+          return(FALSE);
+     &#125;
+     return(TRUE)
+  &#125;
+</code></pre>
+</li>
+</ul>
+<p><img src="/img/stack/stack3.jpg" alt="stack2"></p>
+<h5 id="出栈操作算法"><a href="#出栈操作算法" class="headerlink" title="出栈操作算法"></a>出栈操作算法</h5><p>出栈操作步骤：</p>
+<ul>
+<li><p>出栈需判空</p>
+</li>
+<li><p>元素出栈</p>
+</li>
+<li><p>修改栈顶指针</p>
+<pre><code>  int Pop(DqStack *S , StackElementType *x , int i)&#123;
+      switch(i)&#123;
+          case 0:
+              if(S-&gt;top[0] == -1)return(FALSE);
+              *x = S-&gt;Stack[S-&gt;top[0]];
+              S-&gt;top[0]--;
+              break;
+          case 1:
+              if(S-&gt;top[1] == M)
+              return(FALSE);
+              *x = S-&gt;Stack[S-&gt;top[1]];
+              S-&gt;top[1]++;
+              break;
+          default:
+          return(FALSE);
+     &#125;
+     return(TRUE)
+  &#125;
+</code></pre>
+</li>
+</ul>
+<h3 id="栈的链式实现"><a href="#栈的链式实现" class="headerlink" title="栈的链式实现"></a>栈的链式实现</h3><h4 id="链栈的定义及示意图"><a href="#链栈的定义及示意图" class="headerlink" title="链栈的定义及示意图"></a>链栈的定义及示意图</h4><p>采用带头结点的单链表实现链栈。<br>头指针就作为指针<br>链栈示意图:<br><img src="/img/stack/stack4.jpg" alt="链栈"></p>
+<ul>
+<li><p>top 为栈顶指针，始终指向当前栈顶元素前面的头结点。</p>
+</li>
+<li><p>若 top -&gt; next == NULL , 则代表空栈</p>
+<h4 id="用C语言定义的链栈结构"><a href="#用C语言定义的链栈结构" class="headerlink" title="用C语言定义的链栈结构"></a>用C语言定义的链栈结构</h4><pre><code>  typedef struct node&#123;
+      StackElementType data;
+      struct node *next;
+  &#125;LinkStackNode;
+  typedef LinkStackNode *LinkStack;
+</code></pre>
+</li>
+</ul>
+<h4 id="链栈的进栈操作"><a href="#链栈的进栈操作" class="headerlink" title="链栈的进栈操作"></a>链栈的进栈操作</h4><pre><code>    int Push(LinkStacktop , StackElementType x)&#123;
+        LinkStackNode* temp;//将数据元素x压人栈 top 中
+        temp = (LinkStackNode*)malloc(sizeof(LinkStackNode));
+        if(temp == NULL)return(FALSE);//申请空间失败
+        temp-&gt;data = x;
+        temp-&gt;next = top-&gt;next;
+        top-&gt;next = temp;//修改当前栈顶指针
+        return(TRUE);
+    &#125;
+</code></pre>
+<h4 id="链栈的出栈操作"><a href="#链栈的出栈操作" class="headerlink" title="链栈的出栈操作"></a>链栈的出栈操作</h4><pre><code>    int Pop(LinkStacktop , StackElementType *x)&#123;
+        LinkStackNode* temp;//将栈 top 的栈顶元素弹出，放到x所指的存储空间中
+        temp = top-&gt;next;
+        if(temp == NULL)return(FALSE);//栈为空
+        top-&gt;next = temp-&gt;next;
+        *x = temp-&gt;data;
+        free(temp);//释放存储空间
+        return(TRUE);
+    &#125;
+</code></pre>
+<h4 id="多栈运算"><a href="#多栈运算" class="headerlink" title="多栈运算"></a>多栈运算</h4><h2 id="栈的应用与递归"><a href="#栈的应用与递归" class="headerlink" title="栈的应用与递归"></a>栈的应用与递归</h2><h3 id="括号匹配"><a href="#括号匹配" class="headerlink" title="括号匹配"></a>括号匹配</h3><p>算法思想：利用设置一个括号栈判别左右括号个数与类型匹配的情况</p>
+<ul>
+<li><p>若读入左括号则入栈，等带相匹配的同类右括号</p>
+</li>
+<li><p>若读入右括号且与栈顶的左括号类型匹配，栈顶左括号出栈，否则属于不合法</p>
+<h3 id="表达式求值"><a href="#表达式求值" class="headerlink" title="表达式求值"></a>表达式求值</h3></li>
+<li><p>无括号算术表达式求值  </p>
+<pre><code>  运算符优先级
+  #  +-  */  **
+  0   1   2   3
+</code></pre>
+</li>
+<li><p>算术表达式处理规则</p>
+<ol>
+<li>规定运算符的优先级表</li>
+<li>设置两个栈：OVS（运算数栈）、OPTR（运算符栈）</li>
+<li>自左向右扫描，进行如下处理</li>
+</ol>
+<ul>
+<li>遇到 运算数则进 OVS 栈</li>
+<li>遇到运算符则与 OPTR 栈的栈顶运算符进行优先级比较：<br>如果当前运算符 &gt;OPTR 栈顶运算符，则当前运算符进 OPTR 栈<br>如果当前运算符&lt;=OPTR 栈顶运算符，则 OPTR 退栈一次，得到栈顶运算符 y, OVS 连续退栈两次，得到运算数 a,b,对 a,b 执行 y 操作，得到结果 T(i) ,将 T(i) 进 VOS 栈。</li>
+</ul>
+</li>
+</ul>
+<h3 id="栈与递"><a href="#栈与递" class="headerlink" title="栈与递"></a>栈与递</h3><p>递归：在定义自身的同时又出现了对自身的调用。<br>直接递归函数:在定义的函数体内直接调用自己。<br>间接递归函数：一个函数经过一系列中间调用语句，通过其他函数简介调用自己，如 P 调用 Q ，Q 在调用 P。</p>
+<h4 id="递归特性的问题"><a href="#递归特性的问题" class="headerlink" title="递归特性的问题"></a>递归特性的问题</h4><h5 id="递归定义的数学函数"><a href="#递归定义的数学函数" class="headerlink" title="递归定义的数学函数"></a>递归定义的数学函数</h5><ul>
+<li><p>二阶Fibonacci数列</p>
+<pre><code>  int Fib(int n)&#123;
+      if(n == 0)
+      return 0;
+      if(n == 1)
+      return 1 ;
+      return Fib(n-1) + Fib(n-2);
+  &#125;
+</code></pre>
+</li>
+<li><p>阿克曼函数</p>
+<pre><code>  int Ack(int m , int n)&#123;
+      if(m == 0)
+      return n+1;
+      else if(m != 0 &amp;&amp; n == 0)
+      return Ack(m-1 , 1);
+      else
+      return Ack(m-1 , Ack(m , n-1));
+  &#125;
+</code></pre>
+</li>
+</ul>
+<h5 id="递归数据结构的处理"><a href="#递归数据结构的处理" class="headerlink" title="递归数据结构的处理"></a>递归数据结构的处理</h5><p>如：广义表、二叉树、树等结构其本身均具有固有的递归特性，因此可以自然地采用递归法进行处理。</p>
+<h5 id="递归求解方法"><a href="#递归求解方法" class="headerlink" title="递归求解方法"></a>递归求解方法</h5><p>例子：汉诺塔问题的算法实现</p>
+<pre><code>    //将塔座X上编号为1至 n 的 n 个由小到大圆盘按规则搬到塔座 Z 上，Y 可用作辅助塔座
+    void hanoi(int n , char y , char z)&#123;
+        if(n == 1)&#123;
+            move(x,1,z)//将编号为1的圆盘从 X 移动到 Z
+        &#125;
+        else&#123;
+            hanoi(n-1 , x , z , y);//将 X 上编号为 1 至 n-1 的圆盘移到 Y,Z 作辅助塔
+            move(x , n , z);//将编号为 n 的圆盘从 X 移动到 Z
+            hanoi(n-1 , y , x , z);//将 y 上编号为1至 n-1 的圆盘移动到 z , x作辅助塔
+        &#125;
+        
+    &#125;
+</code></pre>
+<h5 id="递归问题的优点"><a href="#递归问题的优点" class="headerlink" title="递归问题的优点"></a>递归问题的优点</h5><ul>
+<li>对递归问题描述简洁</li>
+<li>结构清晰</li>
+<li>程序的正确性容易证明</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/20/data/data%20structure-2/" rel="next" title="读书笔记之算法">
+                <i class="fa fa-chevron-left"></i> 读书笔记之算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/02/Unity/Tic_Tac_Toe/" rel="prev" title="井字棋小游戏">
+                井字棋小游戏 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">栈的定义与实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">栈的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">栈的抽象数据类型定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E9%A1%BA%E5%BA%8F%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.</span> <span class="nav-text">栈的顺序实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8C%E8%AF%AD%E8%A8%80%E6%8F%8F%E8%BF%B0%E6%A0%88%E7%9A%84%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.1.</span> <span class="nav-text">用C语言描述栈的顺序存储结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E6%A0%88%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.2.</span> <span class="nav-text">顺序栈基本操作的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A4%E6%A0%88%E5%85%B1%E4%BA%AB%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.3.</span> <span class="nav-text">两栈共享的数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%A4%E6%A0%88%E5%85%B1%E4%BA%AB%E6%A0%88%E7%A9%BA%E9%97%B4%E7%A4%BA%E6%84%8F%E5%9B%BE"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">两栈共享栈空间示意图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%A4%E6%A0%88%E5%85%B1%E4%BA%AB%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">两栈共享的数据结构定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">初始化操作算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E6%A0%88%E6%93%8D%E4%BD%9C%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">进栈操作算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%BA%E6%A0%88%E6%93%8D%E4%BD%9C%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.5.</span> <span class="nav-text">出栈操作算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E9%93%BE%E5%BC%8F%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.3.</span> <span class="nav-text">栈的链式实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%93%BE%E6%A0%88%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E7%A4%BA%E6%84%8F%E5%9B%BE"><span class="nav-number">1.3.1.</span> <span class="nav-text">链栈的定义及示意图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8C%E8%AF%AD%E8%A8%80%E5%AE%9A%E4%B9%89%E7%9A%84%E9%93%BE%E6%A0%88%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.2.</span> <span class="nav-text">用C语言定义的链栈结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%93%BE%E6%A0%88%E7%9A%84%E8%BF%9B%E6%A0%88%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.3.</span> <span class="nav-text">链栈的进栈操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%93%BE%E6%A0%88%E7%9A%84%E5%87%BA%E6%A0%88%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.4.</span> <span class="nav-text">链栈的出栈操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E6%A0%88%E8%BF%90%E7%AE%97"><span class="nav-number">1.3.5.</span> <span class="nav-text">多栈运算</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E5%BA%94%E7%94%A8%E4%B8%8E%E9%80%92%E5%BD%92"><span class="nav-number">2.</span> <span class="nav-text">栈的应用与递归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%AC%E5%8F%B7%E5%8C%B9%E9%85%8D"><span class="nav-number">2.1.</span> <span class="nav-text">括号匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B1%82%E5%80%BC"><span class="nav-number">2.2.</span> <span class="nav-text">表达式求值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88%E4%B8%8E%E9%80%92"><span class="nav-number">2.3.</span> <span class="nav-text">栈与递</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E7%89%B9%E6%80%A7%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">2.3.1.</span> <span class="nav-text">递归特性的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E5%AE%9A%E4%B9%89%E7%9A%84%E6%95%B0%E5%AD%A6%E5%87%BD%E6%95%B0"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">递归定义的数学函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">递归数据结构的处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E6%B1%82%E8%A7%A3%E6%96%B9%E6%B3%95"><span class="nav-number">2.3.1.3.</span> <span class="nav-text">递归求解方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E9%97%AE%E9%A2%98%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-number">2.3.1.4.</span> <span class="nav-text">递归问题的优点</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zansimple</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'zansimple@sina.com',
+            repo: 'Lenzan.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'ab213d1885202bf24e6a3d183a39276b1925b73e',
+            
+                client_id: '4f5274f840f60afebb47'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

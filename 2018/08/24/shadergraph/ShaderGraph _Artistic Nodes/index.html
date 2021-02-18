@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/avatar.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Unity3D，Shader,ShaderGraph," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="zansimple" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="注意节点中很多输入为In(1)的其实是动态长度的Vector，可以接收Vector1~Vector4的值。 Adjustment 调整Channel Mixer根据输入的RGB值及各个通道的权重，输出权重加成后的RGB值。 比如：输入 RGB 为（0.5,0.6,0.7），假设输出 R 通道的比重设置为（0.1,0.2,0.3），则输出的 R 值为 0.5 * 0.1 + 0.6 * 0.2 +">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity_ShaderGraph 节点之 Artistic Nodes">
+<meta property="og:url" content="http://example.com/2018/08/24/shadergraph/ShaderGraph%20_Artistic%20Nodes/index.html">
+<meta property="og:site_name" content="zansimple">
+<meta property="og:description" content="注意节点中很多输入为In(1)的其实是动态长度的Vector，可以接收Vector1~Vector4的值。 Adjustment 调整Channel Mixer根据输入的RGB值及各个通道的权重，输出权重加成后的RGB值。 比如：输入 RGB 为（0.5,0.6,0.7），假设输出 R 通道的比重设置为（0.1,0.2,0.3），则输出的 R 值为 0.5 * 0.1 + 0.6 * 0.2 +">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/img/shadergraph/Artistic/node1.png">
+<meta property="og:image" content="http://example.com/img/shadergraph/Artistic/node2.png">
+<meta property="og:image" content="http://example.com/img/shadergraph/Artistic/node3.png">
+<meta property="og:image" content="http://example.com/img/shadergraph/Artistic/node4.png">
+<meta property="og:image" content="http://example.com/img/shadergraph/Artistic/node5.png">
+<meta property="og:image" content="http://example.com/img/shadergraph/Artistic/node6.png">
+<meta property="og:image" content="http://example.com/img/shadergraph/Artistic/node7.png">
+<meta property="og:image" content="http://example.com/img/shadergraph/Artistic/node8.png">
+<meta property="og:image" content="http://example.com/img/shadergraph/Artistic/node9.png">
+<meta property="og:image" content="http://example.com/img/shadergraph/Artistic/node10.png">
+<meta property="og:image" content="http://example.com/img/shadergraph/Artistic/node11.png">
+<meta property="og:image" content="http://example.com/img/shadergraph/Artistic/node12.png">
+<meta property="og:image" content="http://example.com/img/shadergraph/Artistic/node13.png">
+<meta property="og:image" content="http://example.com/img/shadergraph/Artistic/node14.png">
+<meta property="og:image" content="http://example.com/img/shadergraph/Artistic/node15.png">
+<meta property="og:image" content="http://example.com/img/shadergraph/Artistic/node16.png">
+<meta property="og:image" content="http://example.com/img/shadergraph/Artistic/node17.png">
+<meta property="article:published_time" content="2018-08-23T23:08:32.000Z">
+<meta property="article:modified_time" content="2021-02-03T14:57:36.584Z">
+<meta property="article:author" content="zansimple">
+<meta property="article:tag" content="Unity3D，Shader">
+<meta property="article:tag" content="ShaderGraph">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/shadergraph/Artistic/node1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2018/08/24/shadergraph/ShaderGraph _Artistic Nodes/"/>
+
+
+
+
+
+  <title>Unity_ShaderGraph 节点之 Artistic Nodes | zansimple</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zansimple</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">从未如此简单有趣</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/08/24/shadergraph/ShaderGraph%20_Artistic%20Nodes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zansimple">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Unity_ShaderGraph 节点之 Artistic Nodes</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-24T07:08:32+08:00">
+                2018-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/24/shadergraph/ShaderGraph%20_Artistic%20Nodes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/08/24/shadergraph/ShaderGraph%20_Artistic%20Nodes/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>节点中很多输入为In(1)的其实是动态长度的Vector，可以接收Vector1~Vector4的值。</p>
+<h3 id="Adjustment-调整"><a href="#Adjustment-调整" class="headerlink" title="Adjustment 调整"></a>Adjustment 调整</h3><h4 id="Channel-Mixer"><a href="#Channel-Mixer" class="headerlink" title="Channel Mixer"></a>Channel Mixer</h4><p>根据输入的RGB值及各个通道的权重，输出权重加成后的RGB值。<br><img src="/img/shadergraph/Artistic/node1.png" alt="Channel"></p>
+<p>比如：输入 RGB 为（0.5,0.6,0.7），假设输出 R 通道的比重设置为（0.1,0.2,0.3），则输出的 R 值为<br> 0.5 * 0.1 + 0.6 * 0.2 + 0.7 * 0.3 = 0.249<br><img src="/img/shadergraph/Artistic/node2.png" alt="Channel"></p>
+<pre><code>_Node_OutRed = float3 (OutRedInRed, OutRedInGreen, OutRedInBlue);
+_Node_OutGreen = float3 (OutGreenInRed, OutGreenInGreen, OutGreenInBlue);
+_Node_OutBlue = float3 (OutBlueInRed, OutBlueInGreen, OutBlueInBlue);
+Out = float3(dot(In, _Node_OutRed), dot(In, _Node_OutGreen), dot(In, _Node_OutBlue));
+</code></pre>
+<h4 id="Contrast-对比度调节"><a href="#Contrast-对比度调节" class="headerlink" title="Contrast 对比度调节"></a>Contrast 对比度调节</h4><p>根据输入 In 及 Contrast 调节对比度。 Contrast 为1时输出 In , Contrast 为0时输出 In 的中值<br><img src="/img/shadergraph/Artistic/node3.png" alt="Contrast">  </p>
+<pre><code>float midpoint = pow(0.5, 2.2);
+Out =  (In - midpoint) * Contrast + midpoint;
+</code></pre>
+<h4 id="Hue-色相调节"><a href="#Hue-色相调节" class="headerlink" title="Hue 色相调节"></a>Hue 色相调节</h4><p>根据Offset调节色相。<br>可以根据Degrees调节即（-180，180）<br>或者根据Normalized调节即（-1，1）<br><img src="/img/shadergraph/Artistic/node4.png" alt="HUE"><br>Degree代码（Normalized类似）：</p>
+<pre><code>float4 K = float4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+float4 P = lerp(float4(In.bg, K.wz), float4(In.gb, K.xy), step(In.b, In.g));
+float4 Q = lerp(float4(P.xyw, In.r), float4(In.r, P.yzx), step(P.x, In.r));
+float D = Q.x - min(Q.w, Q.y);
+float E = 1e-10;
+float3 hsv = float3(abs(Q.z + (Q.w - Q.y)/(6.0 * D + E)), D / (Q.x + E), Q.x);
+
+float hue = hsv.x + Offset / 360;
+hsv.x = (hue &lt; 0)
+        ? hue + 1
+        : (hue &gt; 1)
+            ? hue - 1
+            : hue;
+
+float4 K2 = float4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+float3 P2 = abs(frac(hsv.xxx + K2.xyz) * 6.0 - K2.www);
+Out = hsv.z * lerp(K2.xxx, saturate(P2 - K2.xxx), hsv.y);
+</code></pre>
+<h4 id="Invert-Colors-颜色反转"><a href="#Invert-Colors-颜色反转" class="headerlink" title="Invert Colors 颜色反转"></a>Invert Colors 颜色反转</h4><p>可以选择单个或多个反转的通道<br><img src="/img/shadergraph/Artistic/node5.png" alt="Texture">  </p>
+<h4 id="Replace-Color-替换颜色"><a href="#Replace-Color-替换颜色" class="headerlink" title="Replace Color 替换颜色"></a>Replace Color 替换颜色</h4><p>In：输入的颜色<br>From：要替换的颜色<br>To：替换成的颜色<br>Range：类似PS里的容差值<br>Fuzziness：软化选区的边缘<br><img src="/img/shadergraph/Artistic/node6.png" alt="Texture">    </p>
+<pre><code>float Distance = distance(From, In);
+Out = lerp(To, In, saturate((Distance - Range) / max(Fuzziness, 1e-5f)));
+</code></pre>
+<h4 id="Saturation-饱和度"><a href="#Saturation-饱和度" class="headerlink" title="Saturation 饱和度"></a>Saturation 饱和度</h4><p>Saturation为1时输出原颜色，Saturation为0时为完全不饱和色。<br><img src="/img/shadergraph/Artistic/node7.png" alt="Texture">   </p>
+<pre><code>float luma = dot(In, float3(0.2126729, 0.7151522, 0.0721750));
+Out =  luma.xxx + Saturation.xxx * (In - luma.xxx);
+</code></pre>
+<h4 id="White-Balance-白平衡"><a href="#White-Balance-白平衡" class="headerlink" title="White Balance 白平衡"></a>White Balance 白平衡</h4><p>Temperature 让颜色变黄或者变蓝<br>Tint 让颜色变粉或者变绿<br><img src="/img/shadergraph/Artistic/node8.png" alt="Texture">   </p>
+<pre><code>// Range ~[-1.67;1.67] works best
+float t1 = Temperature * 10 / 6;
+float t2 = Tint * 10 / 6;
+
+// Get the CIE xy chromaticity of the reference white point.
+// Note: 0.31271 = x value on the D65 white point
+float x = 0.31271 - t1 * (t1 &lt; 0 ? 0.1 : 0.05);
+float standardIlluminantY = 2.87 * x - 3 * x * x - 0.27509507;
+float y = standardIlluminantY + t2 * 0.05;
+
+// Calculate the coefficients in the LMS space.
+float3 w1 = float3(0.949237, 1.03542, 1.08728); // D65 white point
+
+// CIExyToLMS
+float Y = 1;
+float X = Y * x / y;
+float Z = Y * (1 - x - y) / y;
+float L = 0.7328 * X + 0.4296 * Y - 0.1624 * Z;
+float M = -0.7036 * X + 1.6975 * Y + 0.0061 * Z;
+float S = 0.0030 * X + 0.0136 * Y + 0.9834 * Z;
+float3 w2 = float3(L, M, S);
+
+float3 balance = float3(w1.x / w2.x, w1.y / w2.y, w1.z / w2.z);
+
+float3x3 LIN_2_LMS_MAT = &#123;
+    3.90405e-1, 5.49941e-1, 8.92632e-3,
+    7.08416e-2, 9.63172e-1, 1.35775e-3,
+    2.31082e-2, 1.28021e-1, 9.36245e-1
+&#125;;
+
+float3x3 LMS_2_LIN_MAT = &#123;
+    2.85847e+0, -1.62879e+0, -2.48910e-2,
+    -2.10182e-1,  1.15820e+0,  3.24281e-4,
+    -4.18120e-2, -1.18169e-1,  1.06867e+0
+&#125;;
+
+float3 lms = mul(LIN_2_LMS_MAT, In);
+lms *= balance;
+Out = mul(LMS_2_LIN_MAT, lms);
+</code></pre>
+<h3 id="Blend-混合"><a href="#Blend-混合" class="headerlink" title="Blend 混合"></a>Blend 混合</h3><p>根据输入的Base、Blend两个值进行混合，Opacity可以设置混合的强度，0=不增强，Mode可以设置混合的模式。<br><img src="/img/shadergraph/Artistic/node9.png" alt="Texture"><br>不同Mode的Shader代码</p>
+<ul>
+<li><p>Burn</p>
+<pre><code>  Out =  1.0 - (1.0 - Blend)/Base;
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>Darken</p>
+<pre><code>  Out = min(Blend, Base);
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>Difference</p>
+<pre><code>  Out = abs(Blend - Base);
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>Dodge</p>
+<pre><code>  Out = Base / (1.0 - Blend);
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>Divide</p>
+<pre><code>  Out = Base / (Blend + 0.000000000001);
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>Exclusion</p>
+<pre><code>  Out = Blend + Base - (2.0 * Blend * Base);
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>HardLight</p>
+<pre><code>  float# result1 = 1.0 - 2.0 * (1.0 - Base) * (1.0 - Blend);
+  float# result2 = 2.0 * Base * Blend;
+  float# zeroOrOne = step(Blend, 0.5);
+  Out = result2 * zeroOrOne + (1 - zeroOrOne) * result1;
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>HardMix</p>
+<pre><code>  Out = step(1 - Base, Blend);
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>Lighten</p>
+<pre><code>  Out = max(Blend, Base);
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>LinearBurn</p>
+<pre><code>  Out = Base + Blend - 1.0;
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>LinearDodge</p>
+<pre><code>  Out = Base + Blend;
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>LinearLight</p>
+<pre><code>  Out = Blend &lt; 0.5 ? max(Base + (2 * Blend) - 1, 0) : min(Base + 2 * (Blend - 0.5), 1);
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>LinearLightAddSub</p>
+<pre><code>  Out = Blend + 2.0 * Base - 1.0;
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>Multiply</p>
+<pre><code>  Out = Base * Blend;
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>Negation</p>
+<pre><code>  Out = 1.0 - abs(1.0 - Blend - Base);
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>Screen</p>
+<pre><code>  Out = 1.0 - (1.0 - Blend) * (1.0 - Base);
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>Overlay</p>
+<pre><code>  float# result1 = 1.0 - 2.0 * (1.0 - Base) * (1.0 - Blend);
+  float# result2 = 2.0 * Base * Blend;
+  float# zeroOrOne = step(Base, 0.5);
+  Out = result2 * zeroOrOne + (1 - zeroOrOne) * result1;
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>PinLight</p>
+<pre><code>  float# check = step (0.5, Blend);
+  float# result1 = check * max(2.0 * (Base - 0.5), Blend);
+  Out = result1 + (1.0 - check) * min(2.0 * Base, Blend);
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>SoftLight</p>
+<pre><code>  float# result1 = 2.0 * Base * Blend + Base * Base * (1.0 - 2.0 * Blend);
+  float# result2 = sqrt(Base) * (2.0 * Blend - 1.0) + 2.0 * Base * (1.0 - Blend);
+  float# zeroOrOne = step(0.5, Blend);
+  Out = result2 * zeroOrOne + (1 - zeroOrOne) * result1;
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>VividLight</p>
+<pre><code>  float# result1 = 1.0 - (1.0 - Blend) / (2.0 * Base);
+  float# result2 = Blend / (2.0 * (1.0 - Base));
+  float# zeroOrOne = step(0.5, Base);
+  Out = result2 * zeroOrOne + (1 - zeroOrOne) * result1;
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+<li><p>Subtract</p>
+<pre><code>  Out = Base - Blend;
+  Out = lerp(Base, Out, Opacity);
+</code></pre>
+</li>
+</ul>
+<h3 id="Filter-滤镜"><a href="#Filter-滤镜" class="headerlink" title="Filter 滤镜"></a>Filter 滤镜</h3><h4 id="Dither"><a href="#Dither" class="headerlink" title="Dither"></a>Dither</h4><p>Dither 是一种特定格式的噪波，用于随机量化误差。它用于防止大幅拉伸图片时出现的异常情况，如图像中的色带。Dither节点在屏幕空间抖动来确保图案的均匀分布。可以通过连接另一个节点来输入屏幕位置。此节点通常作为主节点上 Alpha Clip Threshold 的输入，为不透明对象提供透明的外观。这对于创建透明的对象很有用，而且仍然可以写入深度缓冲区。  </p>
+<p><img src="/img/shadergraph/Artistic/node10.png" alt="Texture">   </p>
+<pre><code>float2 uv = ScreenPosition.xy * _ScreenParams.xy;
+float DITHER_THRESHOLDS[16] =
+&#123;
+    1.0 / 17.0,  9.0 / 17.0,  3.0 / 17.0, 11.0 / 17.0,
+    13.0 / 17.0,  5.0 / 17.0, 15.0 / 17.0,  7.0 / 17.0,
+    4.0 / 17.0, 12.0 / 17.0,  2.0 / 17.0, 10.0 / 17.0,
+    16.0 / 17.0,  8.0 / 17.0, 14.0 / 17.0,  6.0 / 17.0
+&#125;;
+uint index = (uint(uv.x) % 4) * 4 + uint(uv.y) % 4;
+Out = In - DITHER_THRESHOLDS[index];
+</code></pre>
+<h3 id="Mask-遮罩"><a href="#Mask-遮罩" class="headerlink" title="Mask 遮罩"></a>Mask 遮罩</h3><h4 id="Channel-Mask"><a href="#Channel-Mask" class="headerlink" title="Channel Mask"></a>Channel Mask</h4><p>可以从下拉框中选择输出的通道。可以用来过滤或使用某个或某几个通道。<br><img src="/img/shadergraph/Artistic/node11.png" alt="Texture">   </p>
+<h4 id="Color-Mask"><a href="#Color-Mask" class="headerlink" title="Color Mask"></a>Color Mask</h4><p>从输入颜色与Mask Color相等的颜色的位置创建一个遮罩。<br>Range：类似PS里的容差值<br>Fuzziness：软化选区的边缘    </p>
+<p><img src="/img/shadergraph/Artistic/node12.png" alt="Texture">   </p>
+<pre><code>float Distance = distance(MaskColor, In);
+Out = saturate(1 - (Distance - Range) / max(Fuzziness, 1e-5));
+</code></pre>
+<h3 id="Normal-法线"><a href="#Normal-法线" class="headerlink" title="Normal 法线"></a>Normal 法线</h3><h4 id="Normal-Blend-法线混合"><a href="#Normal-Blend-法线混合" class="headerlink" title="Normal Blend 法线混合"></a>Normal Blend 法线混合</h4><p>混合两个法线</p>
+<p><img src="/img/shadergraph/Artistic/node13.png" alt="Texture">   </p>
+<pre><code>Out = normalize(float3(A.rg + B.rg, A.b * B.b));
+</code></pre>
+<h4 id="Normal-Create-创建法线"><a href="#Normal-Create-创建法线" class="headerlink" title="Normal Create 创建法线"></a>Normal Create 创建法线</h4><p>从一张高度图Texture创建法线贴图。UV和Sampler可以从对应的UV和Sampler State节点连接，如果没有设置将使用默认值。<br>创建的法线贴图的强度可以用Offset和Strength属性修改。Offset定义了法线细节的最大距离，Strength是结果的系数。<br><img src="/img/shadergraph/Artistic/node14.png" alt="Texture">   </p>
+<pre><code>Offset = pow(Offset, 3) * 0.1;
+float2 offsetU = float2(UV.x + Offset, UV.y);
+float2 offsetV = float2(UV.x, UV.y + Offset);
+float normalSample = Texture.Sample(Sampler, UV);
+float uSample = Texture.Sample(Sampler, offsetU);
+float vSample = Texture.Sample(Sampler, offsetV);
+float3 va = float3(1, 0, (uSample - normalSample) * Strength);
+float3 vb = float3(0, 1, (vSample - normalSample) * Strength);
+Out = normalize(cross(va, vb));
+</code></pre>
+<h4 id="Normal-Strength"><a href="#Normal-Strength" class="headerlink" title="Normal Strength"></a>Normal Strength</h4><p>修改法线贴图的Strength。Strength为1时返回原图，为0时返回纯黑的法线贴图。<br><img src="/img/shadergraph/Artistic/node15.png" alt="Texture">   </p>
+<pre><code>Out = &#123;precision&#125;3(In.rg * Strength, In.b);
+</code></pre>
+<h4 id="Normal-Unpack"><a href="#Normal-Unpack" class="headerlink" title="Normal Unpack"></a>Normal Unpack</h4><p>解包一个法线贴图。</p>
+<ul>
+<li>注意<br>通常这是多余的，因为在Sample的时候法线贴图的Type一般会设置为Normal，如下图所示，已经自动解包成法线贴图。可以看下面Normal Unpack节点是多余的，下面预览是相同的。<br><img src="/img/shadergraph/Artistic/node16.png" alt="Texture">   </li>
+</ul>
+<h3 id="Utility-工具"><a href="#Utility-工具" class="headerlink" title="Utility 工具"></a>Utility 工具</h3><h4 id="Colorspace-Conversion-颜色空间转换"><a href="#Colorspace-Conversion-颜色空间转换" class="headerlink" title="Colorspace Conversion 颜色空间转换"></a>Colorspace Conversion 颜色空间转换</h4><p>从一种颜色空间转换到另一种颜色空间。<br><img src="/img/shadergraph/Artistic/node17.png" alt="Texture">  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Unity3D%EF%BC%8CShader/" rel="tag"># Unity3D，Shader</a>
+          
+            <a href="/tags/ShaderGraph/" rel="tag"># ShaderGraph</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/24/shadergraph/ShaderGraph_Channel%20Nodes/" rel="next" title="Unity_ShaderGraph 节点之 Channel Nodes">
+                <i class="fa fa-chevron-left"></i> Unity_ShaderGraph 节点之 Channel Nodes
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">1.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adjustment-%E8%B0%83%E6%95%B4"><span class="nav-number">2.</span> <span class="nav-text">Adjustment 调整</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Channel-Mixer"><span class="nav-number">2.1.</span> <span class="nav-text">Channel Mixer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Contrast-%E5%AF%B9%E6%AF%94%E5%BA%A6%E8%B0%83%E8%8A%82"><span class="nav-number">2.2.</span> <span class="nav-text">Contrast 对比度调节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hue-%E8%89%B2%E7%9B%B8%E8%B0%83%E8%8A%82"><span class="nav-number">2.3.</span> <span class="nav-text">Hue 色相调节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Invert-Colors-%E9%A2%9C%E8%89%B2%E5%8F%8D%E8%BD%AC"><span class="nav-number">2.4.</span> <span class="nav-text">Invert Colors 颜色反转</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Replace-Color-%E6%9B%BF%E6%8D%A2%E9%A2%9C%E8%89%B2"><span class="nav-number">2.5.</span> <span class="nav-text">Replace Color 替换颜色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Saturation-%E9%A5%B1%E5%92%8C%E5%BA%A6"><span class="nav-number">2.6.</span> <span class="nav-text">Saturation 饱和度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#White-Balance-%E7%99%BD%E5%B9%B3%E8%A1%A1"><span class="nav-number">2.7.</span> <span class="nav-text">White Balance 白平衡</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Blend-%E6%B7%B7%E5%90%88"><span class="nav-number">3.</span> <span class="nav-text">Blend 混合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Filter-%E6%BB%A4%E9%95%9C"><span class="nav-number">4.</span> <span class="nav-text">Filter 滤镜</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Dither"><span class="nav-number">4.1.</span> <span class="nav-text">Dither</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mask-%E9%81%AE%E7%BD%A9"><span class="nav-number">5.</span> <span class="nav-text">Mask 遮罩</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Channel-Mask"><span class="nav-number">5.1.</span> <span class="nav-text">Channel Mask</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Color-Mask"><span class="nav-number">5.2.</span> <span class="nav-text">Color Mask</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Normal-%E6%B3%95%E7%BA%BF"><span class="nav-number">6.</span> <span class="nav-text">Normal 法线</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Normal-Blend-%E6%B3%95%E7%BA%BF%E6%B7%B7%E5%90%88"><span class="nav-number">6.1.</span> <span class="nav-text">Normal Blend 法线混合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Normal-Create-%E5%88%9B%E5%BB%BA%E6%B3%95%E7%BA%BF"><span class="nav-number">6.2.</span> <span class="nav-text">Normal Create 创建法线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Normal-Strength"><span class="nav-number">6.3.</span> <span class="nav-text">Normal Strength</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Normal-Unpack"><span class="nav-number">6.4.</span> <span class="nav-text">Normal Unpack</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Utility-%E5%B7%A5%E5%85%B7"><span class="nav-number">7.</span> <span class="nav-text">Utility 工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Colorspace-Conversion-%E9%A2%9C%E8%89%B2%E7%A9%BA%E9%97%B4%E8%BD%AC%E6%8D%A2"><span class="nav-number">7.1.</span> <span class="nav-text">Colorspace Conversion 颜色空间转换</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zansimple</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'zansimple@sina.com',
+            repo: 'Lenzan.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'ab213d1885202bf24e6a3d183a39276b1925b73e',
+            
+                client_id: '4f5274f840f60afebb47'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

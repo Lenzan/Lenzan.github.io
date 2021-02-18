@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>zansimple</title>
+  
+  <subtitle>从未如此简单有趣</subtitle>
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2021-02-03T14:57:36.584Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>zansimple</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Unity_ShaderGraph 节点之 Artistic Nodes</title>
+    <link href="http://example.com/2018/08/24/shadergraph/ShaderGraph%20_Artistic%20Nodes/"/>
+    <id>http://example.com/2018/08/24/shadergraph/ShaderGraph%20_Artistic%20Nodes/</id>
+    <published>2018-08-23T23:08:32.000Z</published>
+    <updated>2021-02-03T14:57:36.584Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;注意&quot;&gt;&lt;a href=&quot;#注意&quot; class=&quot;headerlink&quot; title=&quot;注意&quot;&gt;&lt;/a&gt;注意&lt;/h3&gt;&lt;p&gt;节点中很多输入为In(1)的其实是动态长度的Vector，可以接收Vector1~Vector4的值。&lt;/p&gt;
+&lt;h3</summary>
+        
+      
+    
+    
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Unity3D，Shader" scheme="http://example.com/tags/Unity3D%EF%BC%8CShader/"/>
+    
+    <category term="ShaderGraph" scheme="http://example.com/tags/ShaderGraph/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Unity_ShaderGraph 节点之 Channel Nodes</title>
+    <link href="http://example.com/2018/08/24/shadergraph/ShaderGraph_Channel%20Nodes/"/>
+    <id>http://example.com/2018/08/24/shadergraph/ShaderGraph_Channel%20Nodes/</id>
+    <published>2018-08-23T21:48:32.000Z</published>
+    <updated>2021-02-03T14:57:36.584Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;Combine-组合&quot;&gt;&lt;a href=&quot;#Combine-组合&quot; class=&quot;headerlink&quot; title=&quot;Combine 组合&quot;&gt;&lt;/a&gt;Combine 组合&lt;/h3&gt;&lt;p&gt;可以从 RGBA 重新组合一个新的向量&lt;br&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Unity3D" scheme="http://example.com/tags/Unity3D/"/>
+    
+    <category term="ShaderGraph" scheme="http://example.com/tags/ShaderGraph/"/>
+    
+    <category term="Shader" scheme="http://example.com/tags/Shader/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Unity3D 项目专属文件夹</title>
+    <link href="http://example.com/2018/08/15/Unity/UnityFolder/"/>
+    <id>http://example.com/2018/08/15/Unity/UnityFolder/</id>
+    <published>2018-08-15T00:48:32.000Z</published>
+    <updated>2021-02-03T14:57:36.570Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;Unity3D-项目专属文件夹须知&quot;&gt;&lt;a href=&quot;#Unity3D-项目专属文件夹须知&quot; class=&quot;headerlink&quot; title=&quot;Unity3D 项目专属文件夹须知&quot;&gt;&lt;/a&gt;Unity3D 项目专属文件夹须知&lt;/h2&gt;&lt;h3</summary>
+        
+      
+    
+    
+    
+    <category term="Unity3D" scheme="http://example.com/categories/Unity3D/"/>
+    
+    
+    <category term="Unity3D" scheme="http://example.com/tags/Unity3D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Unity3D-UI框架</title>
+    <link href="http://example.com/2018/08/15/Unity/UIManager/"/>
+    <id>http://example.com/2018/08/15/Unity/UIManager/</id>
+    <published>2018-08-14T21:48:32.000Z</published>
+    <updated>2021-02-03T14:57:36.571Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;博主的小游戏开发已经正式开展了起来了，游戏的定位主要就是乱斗游戏，首先就是通过写文章来记录一下自己游戏开发中遇到的问题，难点什么的。废话不多说直接进主题。&lt;/p&gt;
+&lt;h3 id=&quot;UI框架&quot;&gt;&lt;a href=&quot;#UI框架&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Unity3D" scheme="http://example.com/categories/Unity3D/"/>
+    
+    
+    <category term="Unity3D" scheme="http://example.com/tags/Unity3D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Unity3D AssetBundle 框架整理（二）</title>
+    <link href="http://example.com/2018/07/30/assetbundle/assetbundle-manager/"/>
+    <id>http://example.com/2018/07/30/assetbundle/assetbundle-manager/</id>
+    <published>2018-07-29T22:48:32.000Z</published>
+    <updated>2021-02-03T14:57:36.575Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;资源加载业务接口创建&quot;&gt;&lt;a href=&quot;#资源加载业务接口创建&quot; class=&quot;headerlink&quot; title=&quot;资源加载业务接口创建&quot;&gt;&lt;/a&gt;资源加载业务接口创建&lt;/h3&gt;</summary>
+    
+    
+    
+    <category term="Unity3D" scheme="http://example.com/categories/Unity3D/"/>
+    
+    
+    <category term="Unity3D" scheme="http://example.com/tags/Unity3D/"/>
+    
+    <category term="AssetBundle" scheme="http://example.com/tags/AssetBundle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之代理模式</title>
+    <link href="http://example.com/2018/07/30/design/proxy%20Pattern/"/>
+    <id>http://example.com/2018/07/30/design/proxy%20Pattern/</id>
+    <published>2018-07-29T22:48:32.000Z</published>
+    <updated>2021-02-03T14:57:36.582Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;最近自己正在研究一套自己的 AssetBundle</summary>
+        
+      
+    
+    
+    
+    <category term="Unity3D" scheme="http://example.com/categories/Unity3D/"/>
+    
+    
+    <category term="设计模式" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="代理模式" scheme="http://example.com/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Unity3D AssetBundle 框架整理（一）自动做标记</title>
+    <link href="http://example.com/2018/07/18/assetbundle%20manager/auto%20setLable/"/>
+    <id>http://example.com/2018/07/18/assetbundle%20manager/auto%20setLable/</id>
+    <published>2018-07-17T17:48:32.000Z</published>
+    <updated>2021-02-03T14:57:36.578Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;之前也做了一些关于 AssetBundle</summary>
+        
+      
+    
+    
+    
+    <category term="Unity3D" scheme="http://example.com/categories/Unity3D/"/>
+    
+    
+    <category term="Unity3D" scheme="http://example.com/tags/Unity3D/"/>
+    
+    <category term="AssetBundle" scheme="http://example.com/tags/AssetBundle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基于HeadFirst设计模式之工厂模式</title>
+    <link href="http://example.com/2018/07/16/design/headfirst-factory/"/>
+    <id>http://example.com/2018/07/16/design/headfirst-factory/</id>
+    <published>2018-07-16T02:48:32.000Z</published>
+    <updated>2021-02-03T14:57:36.583Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;定义简单工厂&quot;&gt;&lt;a href=&quot;#定义简单工厂&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://example.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="工厂模式" scheme="http://example.com/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>井字棋小游戏</title>
+    <link href="http://example.com/2018/07/02/Unity/Tic_Tac_Toe/"/>
+    <id>http://example.com/2018/07/02/Unity/Tic_Tac_Toe/</id>
+    <published>2018-07-02T00:48:32.000Z</published>
+    <updated>2021-02-03T14:57:36.570Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;最近正在看《C#6.0本质论》为了更清楚的了解书中的内容，特地花了一天的时间通过在 Unity 中实现这个游戏来总结一下 1~3</summary>
+        
+      
+    
+    
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="井字棋" scheme="http://example.com/tags/%E4%BA%95%E5%AD%97%E6%A3%8B/"/>
+    
+    <category term="小游戏" scheme="http://example.com/tags/%E5%B0%8F%E6%B8%B8%E6%88%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>读书笔记之栈与队列-1</title>
+    <link href="http://example.com/2018/06/24/data/stackandQueue/"/>
+    <id>http://example.com/2018/06/24/data/stackandQueue/</id>
+    <published>2018-06-24T00:48:32.000Z</published>
+    <updated>2021-02-03T14:57:36.579Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;栈的定义与实现&quot;&gt;&lt;a href=&quot;#栈的定义与实现&quot; class=&quot;headerlink&quot; title=&quot;栈的定义与实现&quot;&gt;&lt;/a&gt;栈的定义与实现&lt;/h2&gt;&lt;h3 id=&quot;栈的定义&quot;&gt;&lt;a href=&quot;#栈的定义&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="数据结构" scheme="http://example.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+    <category term="数据结构" scheme="http://example.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>读书笔记之算法</title>
+    <link href="http://example.com/2018/06/20/data/data%20structure-2/"/>
+    <id>http://example.com/2018/06/20/data/data%20structure-2/</id>
+    <published>2018-06-20T00:48:32.000Z</published>
+    <updated>2021-02-03T14:57:36.581Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;算法与算法描述&quot;&gt;&lt;a href=&quot;#算法与算法描述&quot; class=&quot;headerlink&quot; title=&quot;算法与算法描述&quot;&gt;&lt;/a&gt;算法与算法描述&lt;/h2&gt;&lt;h3 id=&quot;算法：&quot;&gt;&lt;a href=&quot;#算法：&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="数据结构" scheme="http://example.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+    <category term="数据结构" scheme="http://example.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>读书笔记之数据结构绪论</title>
+    <link href="http://example.com/2018/06/16/data/data%20structure-1/"/>
+    <id>http://example.com/2018/06/16/data/data%20structure-1/</id>
+    <published>2018-06-15T19:21:32.000Z</published>
+    <updated>2021-02-03T14:57:36.578Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;数据结构&quot;&gt;&lt;a href=&quot;#数据结构&quot; class=&quot;headerlink&quot; title=&quot;数据结构&quot;&gt;&lt;/a&gt;数据结构&lt;/h2&gt;&lt;p&gt;定义：数据结构是相互之间存在一种或多种特定关系的数据元素的集合。&lt;/p&gt;
+&lt;h3 id=&quot;数据&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="数据结构" scheme="http://example.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+    <category term="数据结构" scheme="http://example.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基于HeadFirst设计模式之装饰者模式</title>
+    <link href="http://example.com/2018/06/14/design/HeadFirst-garnisher/"/>
+    <id>http://example.com/2018/06/14/design/HeadFirst-garnisher/</id>
+    <published>2018-06-14T03:40:32.000Z</published>
+    <updated>2021-02-03T14:57:36.581Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://example.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="装饰者模式" scheme="http://example.com/tags/%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基于HeadFirst设计模式之观察者模式</title>
+    <link href="http://example.com/2018/06/11/design/HeadFirst-Subject-Observer/"/>
+    <id>http://example.com/2018/06/11/design/HeadFirst-Subject-Observer/</id>
+    <published>2018-06-11T03:40:32.000Z</published>
+    <updated>2021-02-03T14:57:36.580Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;好，我们接着上一篇继续介绍下一个设计模式 观察者模式&lt;br&gt;观察者模式定义了对象之间的一对多依赖，这样一来，当一个对象改变状态时，他的所有依赖的对象都会受到通知并自动更新&lt;/p&gt;
+&lt;h2 id=&quot;确定接口&quot;&gt;&lt;a href=&quot;#确定接口&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://example.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="观察者模式" scheme="http://example.com/tags/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="设计模式" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基于HeadFirst设计模式之策略模式</title>
+    <link href="http://example.com/2018/06/09/design/HeadFirst/"/>
+    <id>http://example.com/2018/06/09/design/HeadFirst/</id>
+    <published>2018-06-09T02:48:32.000Z</published>
+    <updated>2021-02-03T14:57:36.582Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近在看一本书 HeadFirst 设计模式感觉还不错，下面会对这本书所涉及到的几种设计模式分析一下&lt;br&gt;下面书中所介绍的第一个设计模式 入门级的 </summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://example.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="策略模式" scheme="http://example.com/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git 学习笔记下</title>
+    <link href="http://example.com/2018/06/07/git/git-2/"/>
+    <id>http://example.com/2018/06/07/git/git-2/</id>
+    <published>2018-06-07T00:48:32.000Z</published>
+    <updated>2021-02-03T14:57:36.578Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;git-标签&quot;&gt;&lt;a href=&quot;#git-标签&quot; class=&quot;headerlink&quot; title=&quot;git 标签&quot;&gt;&lt;/a&gt;git 标签&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;轻标签  &lt;ul&gt;
+&lt;li&gt;添加名称&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;注解标签 </summary>
+        
+      
+    
+    
+    
+    <category term="Git" scheme="http://example.com/categories/Git/"/>
+    
+    
+    <category term="Git" scheme="http://example.com/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git 学习笔记上</title>
+    <link href="http://example.com/2018/06/05/git/git/"/>
+    <id>http://example.com/2018/06/05/git/git/</id>
+    <published>2018-06-05T00:48:32.000Z</published>
+    <updated>2021-02-03T14:57:36.580Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;git-入门&quot;&gt;&lt;a href=&quot;#git-入门&quot; class=&quot;headerlink&quot; title=&quot;git 入门&quot;&gt;&lt;/a&gt;git 入门&lt;/h2&gt;&lt;p&gt;git</summary>
+        
+      
+    
+    
+    
+    <category term="Git" scheme="http://example.com/categories/Git/"/>
+    
+    
+    <category term="Git" scheme="http://example.com/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Unity官方文档翻译之 AssetBundle 的常见问题</title>
+    <link href="http://example.com/2018/06/03/assetbundle/Troubleshooting/"/>
+    <id>http://example.com/2018/06/03/assetbundle/Troubleshooting/</id>
+    <published>2018-06-03T02:48:32.000Z</published>
+    <updated>2021-02-03T14:57:36.573Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;正文&quot;&gt;&lt;a href=&quot;#正文&quot; class=&quot;headerlink&quot; title=&quot;正文&quot;&gt;&lt;/a&gt;正文&lt;/h2&gt;&lt;p&gt;本节描述在使用 assetbundle 的项目中经常出现的几个问题。&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="Unity3D" scheme="http://example.com/categories/Unity3D/"/>
+    
+    
+    <category term="Unity3D" scheme="http://example.com/tags/Unity3D/"/>
+    
+    <category term="AssetBundle" scheme="http://example.com/tags/AssetBundle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Unity官方文档翻译之 AssetBundle 补丁更新</title>
+    <link href="http://example.com/2018/06/01/assetbundle/patching%20with%20AssetBundles/"/>
+    <id>http://example.com/2018/06/01/assetbundle/patching%20with%20AssetBundles/</id>
+    <published>2018-06-01T00:48:32.000Z</published>
+    <updated>2021-02-03T14:57:36.576Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;正文&quot;&gt;&lt;a href=&quot;#正文&quot; class=&quot;headerlink&quot; title=&quot;正文&quot;&gt;&lt;/a&gt;正文&lt;/h1&gt;&lt;h2 id=&quot;AssetBundle-补丁更新&quot;&gt;&lt;a href=&quot;#AssetBundle-补丁更新&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Unity3D" scheme="http://example.com/categories/Unity3D/"/>
+    
+    
+    <category term="Unity3D" scheme="http://example.com/tags/Unity3D/"/>
+    
+    <category term="AssetBundle" scheme="http://example.com/tags/AssetBundle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Unity官方文档翻译之 AssetBundle 管理器</title>
+    <link href="http://example.com/2018/05/30/assetbundle/assetbundle%20manager/"/>
+    <id>http://example.com/2018/05/30/assetbundle/assetbundle%20manager/</id>
+    <published>2018-05-29T19:16:32.000Z</published>
+    <updated>2021-02-03T14:57:36.573Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;正文&quot;&gt;&lt;a href=&quot;#正文&quot; class=&quot;headerlink&quot; title=&quot;正文&quot;&gt;&lt;/a&gt;正文&lt;/h1&gt;&lt;h2 id=&quot;AssetBundle-管理器&quot;&gt;&lt;a href=&quot;#AssetBundle-管理器&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Unity3D" scheme="http://example.com/categories/Unity3D/"/>
+    
+    
+    <category term="Unity3D" scheme="http://example.com/tags/Unity3D/"/>
+    
+    <category term="AssetBundle" scheme="http://example.com/tags/AssetBundle/"/>
+    
+  </entry>
+  
+</feed>
